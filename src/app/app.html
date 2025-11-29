@@ -1,22 +1,63 @@
+<!-- ═══════════════════════════════════════════════════════════════════════════
+     TEMPLATE DEL COMPONENTE APP
+     
+     Este archivo demuestra los diferentes tipos de data binding en Angular:
+     
+     1. INTERPOLACIÓN {{ propiedad }}
+        - Muestra el valor de una propiedad del componente en el HTML
+        - Es unidireccional: del componente hacia la vista
+     
+     2. PROPERTY BINDING [propiedad]="valor"
+        - Vincula una propiedad del DOM a una propiedad del componente
+        - Útil para atributos dinámicos como estilos, clases, src, href, etc.
+     
+     3. EVENT BINDING (evento)="método()"
+        - Escucha eventos del DOM y ejecuta métodos del componente
+        - Permite responder a clicks, inputs, submits, etc.
+     
+     4. TWO-WAY BINDING [(ngModel)]="propiedad"
+        - Combina property binding y event binding
+        - Sincroniza el valor del input con la propiedad en ambas direcciones
+═══════════════════════════════════════════════════════════════════════════ -->
+
+<!-- INTERPOLACIÓN: Muestra el título definido en el componente -->
 <h1>{{ title }}</h1>
 
+<!-- PROPERTY BINDING: El color de fondo se vincula a la propiedad contentBackgroundColor
+     Sintaxis: [style.nombrePropiedad]="valorDesdeTipoScript"
+     Angular actualiza el estilo automáticamente cuando cambia la propiedad -->
 <div class="content-box" [style.backgroundColor]="contentBackgroundColor">
   Contenido inicial del div.{{ dynamicMessage }}
 </div>
 
+<!-- INTERPOLACIÓN: Muestra el navegador detectado -->
 <p><strong>Navegador detectado:</strong> {{ browser }}</p>
 
+<!-- EVENT BINDING: Al hacer click, se ejecuta el método addItem() del componente
+     Sintaxis: (nombreEvento)="métodoDelComponente()"
+     Eventos comunes: click, input, change, submit, keyup, mouseover, etc. -->
 <button (click)="addItem()">Añadir ítem</button>
 
+<!-- DIRECTIVA @for: Itera sobre el array 'items' y crea un <li> por cada elemento
+     - 'item' es la variable que contiene cada elemento del array
+     - 'track $index' ayuda a Angular a identificar elementos para optimizar renderizado
+     - Esta es la nueva sintaxis de control flow de Angular 17+ -->
 <ul>
   @for (item of items; track $index) {
     <li>{{ item }}</li>
   }
 </ul>
 
+<!-- TWO-WAY BINDING con ngModel:
+     - [(ngModel)] combina [ngModel] (property binding) y (ngModelChange) (event binding)
+     - Cuando el usuario escribe, se actualiza inputText en el componente
+     - Si inputText cambia en el componente, el input se actualiza automáticamente
+     - Requiere importar FormsModule en el componente -->
 <input 
   type="text" 
   [(ngModel)]="inputText" 
   placeholder="Escribe algo" 
 />
+
+<!-- INTERPOLACIÓN: Muestra en tiempo real lo que el usuario escribe -->
 <p>Texto ingresado: {{ inputText }}</p>
